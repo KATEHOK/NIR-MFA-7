@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    volumes:
+      - db:${POSTGRES_DATA:-/var/lib/postgresql/data/pgdata}
+    env_file:
+      - .env
+    environment:
+      - PGDATA=${POSTGRES_DATA:-/var/lib/postgresql/data/pgdata}
+      - POSTGRES_PASSWORD_FILE=${POSTGRES_PASSWORD_FILE:-/run/secrets/postgres_pwd}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_DB=${POSTGRES_DB:-auth_db}
+    secrets:
+      - postgres_pwd
+    networks:
+      - net
+
+volumes:
+  db:
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/db
+
+networks:
+  net:
+
+secrets:
+  postgres_pwd:
+    file: .secrets/postgres_pwd
