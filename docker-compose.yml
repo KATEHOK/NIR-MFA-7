@@ -57,3 +57,5 @@ networks:
 secrets:
   postgres_pwd:
     file: .secrets/postgres_pwd
+  server_master_key:
+    file: .secrets/server_master_key
