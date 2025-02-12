@@ -6,13 +6,13 @@ import os
 # Конструирует ссылку для подключения к бд
 def get_db_url():
     POSTGRES_PORT = os.getenv('POSTGRES_PORT')
-    POSTGRES_HOST = os.getenv('POSTGRES_SERVER')
+    POSTGRES_SERVER = os.getenv('POSTGRES_SERVER')
     POSTGRES_USER = os.getenv('POSTGRES_USER')
     POSTGRES_DB = os.getenv('POSTGRES_DB')
     POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD_FILE')
     with open(POSTGRES_PASSWORD, 'r') as file:
         POSTGRES_PASSWORD = file.read().strip()
-    return f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}'
+    return f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}'
 
 # class Base(DeclarativeBase):
 #     pass
