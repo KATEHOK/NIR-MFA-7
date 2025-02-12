@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Annotated
 from sqlalchemy import ForeignKey, func, text
 from sqlalchemy.orm import relationship, Mapped, mapped_column
-from .database import Base
+from database import Base
 
 int_pk = Annotated[int, mapped_column(primary_key=True, autoincrement=True)]
 bool_default_false = Annotated[bool, mapped_column(nullable=False, server_default=False)]
