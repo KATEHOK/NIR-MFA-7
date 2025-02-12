@@ -27,13 +27,12 @@ services:
   server:
     container_name: server
     build: ./server
-    # command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-    command: >
-      sh -c "
-      cd app &&
-      alembic revision --autogenerate &&
-      alembic upgrade head &&
-      uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    # command: >
+    #   sh -c "
+    #   alembic revision --autogenerate &&
+    #   alembic upgrade head &&
+    #   uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
     depends_on:
       db:
         condition: service_healthy

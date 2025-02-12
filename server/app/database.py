@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-# from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 import os
 
@@ -14,8 +14,10 @@ def get_db_url():
         POSTGRES_PASSWORD = file.read().strip()
     return f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}'
 
-class Base(DeclarativeBase):
-    pass
+# class Base(DeclarativeBase):
+#     pass
+
+Base = declarative_base()
 
 DATABASE_URL = get_db_url()
 
